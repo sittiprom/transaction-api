@@ -84,14 +84,14 @@ The version value allows Hibernate to detect stale updates and helps protect aga
 
 ## Validation & Error Handling
 
-API requests use Jakarta Bean Validation for input validation.
+API requests use Jakarta Bean Validation and request deserialization checks for input validation.
 
 Examples include:
 
 - Required fields
 - Positive transaction amounts
 - Valid email addresses
-- Enum validation
+- Invalid enum input handling
 
 Application exceptions are handled centrally through a global exception handler to provide consistent HTTP error responses.
 
@@ -117,7 +117,7 @@ Integration tests use the Spring application context and PostgreSQL to verify pe
 Examples include:
 
 - Persisting balance changes through Hibernate dirty checking
-- Transaction failure and rollback behavior
+- Failed transaction behavior and balance consistency
 - Repository and database integration
 
 ## Database
@@ -142,8 +142,7 @@ Customer
 
 ### Prerequisites
 
-- Java
-- Maven
+- Java 21
 - Docker
 - Docker Compose
 
@@ -156,13 +155,13 @@ docker compose up -d
 ### 2. Run the application
 
 ```bash
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 ### 3. Run tests
 
 ```bash
-mvn clean test
+./mvnw clean test
 ```
 
 ## Project Structure
